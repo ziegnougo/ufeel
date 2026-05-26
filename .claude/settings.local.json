@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-Command php -ErrorAction SilentlyContinue | Select-Object Source; Get-ChildItem \"C:\\\\ProgramData\\\\ComposerSetup\\\\bin\\\\composer.bat\" -ErrorAction SilentlyContinue; Get-ChildItem \"$env:APPDATA\\\\Composer\\\\vendor\\\\bin\\\\composer\" -ErrorAction SilentlyContinue; Get-ChildItem \"C:\\\\composer\\\\composer.phar\" -ErrorAction SilentlyContinue; where.exe php 2>$null; where.exe composer 2>$null)",
+      "PowerShell(Get-ChildItem \"C:\\\\\" -Directory -ErrorAction SilentlyContinue | Where-Object { $_.Name -match \"php|xampp|laragon|wamp|herd|laravel\" } | Select-Object FullName)",
+      "PowerShell(Get-ChildItem \"$env:LOCALAPPDATA\" -Directory -ErrorAction SilentlyContinue | Where-Object { $_.Name -match \"php|herd|laravel\" } | Select-Object FullName; Get-ChildItem \"$env:ProgramFiles\" -Directory -ErrorAction SilentlyContinue | Where-Object { $_.Name -match \"php|laragon|laravel\" } | Select-Object FullName; Get-ChildItem \"${env:ProgramFiles\\(x86\\)}\" -Directory -ErrorAction SilentlyContinue | Where-Object { $_.Name -match \"php|laragon\" } | Select-Object FullName)",
+      "PowerShell([System.Environment]::GetEnvironmentVariable\\(\"PATH\", \"Machine\"\\) -split \";\" | Where-Object { $_ -match \"php|composer|laravel|herd\" })",
+      "PowerShell($newPath = [System.Environment]::GetEnvironmentVariable\\(\"PATH\", \"User\"\\); $newPath -split \";\" | Where-Object { $_ -match \"herd|php|composer\" })",
+      "PowerShell($env:PATH = [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"User\"\\); php --version; composer --version)",
+      "PowerShell(Copy-Item \"C:\\\\Users\\\\DEEL\\\\ufeel\\\\.env.example\" \"C:\\\\Users\\\\DEEL\\\\ufeel\\\\.env\" -Force)",
+      "PowerShell($env:PATH = [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"User\"\\); $env:COMPOSER_CACHE_DIR = \"$env:TEMP\\\\composer-cache\"; Set-Location \"C:\\\\Users\\\\DEEL\\\\ufeel\"; composer dump-autoload --no-interaction 2>&1)"
+    ]
+  }
+}
