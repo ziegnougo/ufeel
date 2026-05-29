@@ -5,8 +5,10 @@
 @section('content')
 
 {{-- HERO --}}
-<section class="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-24 px-4">
+<section class="text-white py-24 px-4" style="background: linear-gradient(135deg, #000032 0%, #00005a 60%, #0a0a7a 100%)">
     <div class="max-w-4xl mx-auto text-center">
+        <img src="{{ asset('images/logo.jpg') }}" alt="Logo UFEEL"
+             class="h-28 w-28 rounded-full object-cover border-4 border-white/30 shadow-2xl mx-auto mb-6">
         <p class="text-accent font-semibold text-sm uppercase tracking-widest mb-3">Bienvenue sur la plateforme de l'UFEEL</p>
         <h1 class="text-4xl md:text-5xl font-black leading-tight mb-5">
             Unis pour construire<br>notre avenir ensemble

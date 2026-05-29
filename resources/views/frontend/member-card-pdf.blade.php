@@ -127,6 +127,7 @@
 <body>
 <div class="card">
     <div class="card-header">
+        <img src="{{ public_path('images/logo.jpg') }}" alt="UFEEL" style="width:8mm;height:8mm;border-radius:50%;object-fit:cover;border:0.3mm solid rgba(255,255,255,0.5);flex-shrink:0;">
         <div>
             <div class="org-name">UFEEL</div>
             <div class="org-sub">Union Fraternelle des Élèves et Étudiants de Lafi</div>

@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Invoke-WebRequest -Uri \"http://127.0.0.1:8100\" -UseBasicParsing -TimeoutSec 10 | Select-Object StatusCode, @{N=\"Title\";E={if\\($_.Content -match '<title>\\([^<]+\\)</title>'\\){$Matches[1]}else{\"no title\"}}})",
+      "PowerShell(Receive-Job -Id 1 -Keep 2>$null)",
+      "PowerShell(curl.exe -v --max-time 5 http://127.0.0.1:8100/ 2>&1)",
+      "PowerShell(Get-ChildItem \"$env:USERPROFILE\\\\Downloads\" -ErrorAction SilentlyContinue | Sort-Object LastWriteTime -Descending | Select-Object -First 10 Name, LastWriteTime | Format-Table -AutoSize)",
+      "PowerShell(Get-ChildItem \"$env:USERPROFILE\\\\Downloads\\\\Telegram Desktop\" -ErrorAction SilentlyContinue | Sort-Object LastWriteTime -Descending | Select-Object -First 10 Name, LastWriteTime | Format-Table -AutoSize)",
+      "Bash(gh auth *)"
+    ]
+  }
+}
