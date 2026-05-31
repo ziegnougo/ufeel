@@ -2,99 +2,333 @@
 @section('title', 'Accueil')
 @section('nav_home', 'active')
 
+@push('head')
+<style>
+    /* ── Hero ── */
+    .hero {
+        background: linear-gradient(135deg, #000032 0%, #000050 50%, #1a3c8f 100%);
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+        padding: 80px 24px;
+    }
+    @media (min-width: 1280px) { .hero { padding: 80px 56px; } }
+    @media (min-width: 1536px) { .hero { padding: 80px 96px; } }
+
+    .hero-dots {
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,.04) 1px, transparent 0);
+        background-size: 40px 40px;
+        pointer-events: none;
+    }
+    .hero-glow {
+        position: absolute;
+        top: -120px;
+        right: -120px;
+        width: 560px;
+        height: 560px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(245,168,0,.18), transparent 65%);
+        pointer-events: none;
+    }
+
+    .hero-inner {
+        position: relative;
+        width: 100%;
+        max-width: 1440px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 56px;
+        align-items: center;
+    }
+    @media (min-width: 1024px) {
+        .hero-inner { grid-template-columns: 1.1fr 0.9fr; }
+    }
+    @media (min-width: 1536px) {
+        .hero-inner { max-width: 1600px; }
+    }
+
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(245,168,0,.15);
+        color: #F5A800;
+        font-size: .68rem;
+        font-weight: 700;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        padding: 6px 16px;
+        border-radius: 999px;
+        border: 1px solid rgba(245,168,0,.25);
+        margin-bottom: 28px;
+    }
+
+    .hero-title {
+        color: #ffffff;
+        font-size: clamp(2.4rem, 4.5vw, 5rem);
+        font-weight: 900;
+        line-height: 1.06;
+        margin-bottom: 22px;
+        letter-spacing: -.02em;
+    }
+    .hero-title-gold { color: #F5A800; }
+
+    .hero-desc {
+        color: rgba(255,255,255,.62);
+        font-size: 1.1rem;
+        line-height: 1.75;
+        max-width: 500px;
+        margin-bottom: 36px;
+    }
+
+    .hero-btns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 52px;
+    }
+
+    .hero-stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 36px;
+        padding-top: 32px;
+        border-top: 1px solid rgba(255,255,255,.1);
+    }
+    .hero-stat-val {
+        font-size: 2.2rem;
+        font-weight: 900;
+        color: #F5A800;
+        line-height: 1;
+    }
+    .hero-stat-lbl {
+        font-size: .78rem;
+        color: rgba(255,255,255,.45);
+        margin-top: 4px;
+    }
+
+    /* Logo côté droit */
+    .hero-right {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    @media (min-width: 1024px) { .hero-right { justify-content: flex-end; } }
+
+    .hero-logo-wrap {
+        position: relative;
+        display: inline-block;
+    }
+    .hero-logo-wrap::before {
+        content: '';
+        position: absolute;
+        inset: -30px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(245,168,0,.22), transparent 65%);
+        filter: blur(28px);
+        pointer-events: none;
+    }
+    .hero-logo {
+        position: relative;
+        width: 260px;
+        height: 260px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow:
+            0 0 0 4px rgba(245,168,0,.35),
+            0 0 0 14px rgba(245,168,0,.08),
+            0 32px 64px rgba(0,0,50,.55);
+    }
+    @media (min-width: 1280px) { .hero-logo { width: 340px; height: 340px; } }
+    @media (min-width: 1536px) { .hero-logo { width: 400px; height: 400px; } }
+
+    /* ── Sections ── */
+    .section-white { padding: 80px 24px; background: #fff; }
+    .section-gray  { padding: 80px 24px; background: #f1f5f9; }
+    @media (min-width: 1280px) { .section-white, .section-gray { padding: 80px 56px; } }
+    @media (min-width: 1536px) { .section-white, .section-gray { padding: 80px 96px; } }
+
+    .section-inner {
+        max-width: 1440px;
+        margin: 0 auto;
+    }
+    @media (min-width: 1536px) { .section-inner { max-width: 1600px; } }
+
+    /* ── Event date badge ── */
+    .ev-date-badge {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: #F5A800;
+        color: #000032;
+        border-radius: 10px;
+        padding: 6px 10px;
+        line-height: 1;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(245,168,0,.35);
+        z-index: 1;
+    }
+    .ev-date-d { font-size: 1.15rem; font-weight: 900; }
+    .ev-date-m { font-size: .5rem; font-weight: 700; text-transform: uppercase; margin-top: 2px; }
+
+    /* ── Opportunity card ── */
+    .opp-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 1px 4px rgba(0,0,50,.06), 0 4px 16px rgba(0,0,50,.06);
+        transition: transform .2s, box-shadow .2s;
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .opp-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,50,.13); }
+
+    .opp-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        background: rgba(0,0,50,.05);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+    }
+
+    /* ── CTA Banner ── */
+    .cta-section {
+        background: linear-gradient(135deg, #000032 0%, #1a3c8f 100%);
+        padding: 80px 24px;
+        position: relative;
+        overflow: hidden;
+    }
+    @media (min-width: 1280px) { .cta-section { padding: 80px 56px; } }
+    @media (min-width: 1536px) { .cta-section { padding: 80px 96px; } }
+
+    .cta-dots {
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,.03) 1px, transparent 0);
+        background-size: 40px 40px;
+        pointer-events: none;
+    }
+    .cta-inner {
+        position: relative;
+        max-width: 1440px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 32px;
+        text-align: center;
+    }
+    @media (min-width: 1024px) {
+        .cta-inner { flex-direction: row; justify-content: space-between; text-align: left; gap: 48px; }
+    }
+    .cta-logo {
+        width: 76px;
+        height: 76px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid rgba(245,168,0,.4);
+        box-shadow: 0 8px 32px rgba(0,0,50,.45);
+        flex-shrink: 0;
+    }
+    .cta-title {
+        font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+        font-weight: 900;
+        color: #fff;
+        line-height: 1.2;
+        margin-bottom: 8px;
+    }
+    .cta-title span { color: #F5A800; }
+    .cta-sub { color: rgba(255,255,255,.58); font-size: 1rem; }
+</style>
+@endpush
+
 @section('content')
 
 {{-- ══════ HERO ══════ --}}
-<section class="relative overflow-hidden min-h-[88vh] flex items-center"
-         style="background: linear-gradient(135deg,#000032 0%,#000050 45%,#1a3c8f 100%)">
-    {{-- Grille décorative --}}
-    <div class="absolute inset-0" style="background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.04) 1px,transparent 0);background-size:40px 40px"></div>
-    {{-- Cercle déco --}}
-    <div class="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full opacity-10"
-         style="background:radial-gradient(circle,#F5A800,transparent 70%)"></div>
+<section class="hero">
+    <div class="hero-dots"></div>
+    <div class="hero-glow"></div>
 
-    <div class="relative w-full px-6 xl:px-10 2xl:px-16 py-20">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-screen-2xl mx-auto">
+    <div class="hero-inner">
 
-            {{-- Texte gauche --}}
-            <div>
-                <span class="inline-flex items-center gap-2 bg-gold/15 text-gold text-xs font-bold tracking-widest uppercase px-4 py-2 rounded-full mb-8 border border-gold/20">
-                    ✦ Plateforme officielle UFEEL
-                </span>
-                <h1 class="text-5xl xl:text-6xl 2xl:text-7xl font-black text-white leading-[1.1] mb-6">
-                    Unis pour<br>
-                    <span class="text-gold">construire</span><br>
-                    notre avenir
-                </h1>
-                <p class="text-white/65 text-xl leading-relaxed mb-10 max-w-xl">
-                    L'Union Fraternelle des Élèves et Étudiants de Lafi — ta communauté pour réussir ensemble en Côte d'Ivoire.
-                </p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="{{ route('register') }}" class="btn btn-gold text-base shadow-2xl">
-                        ✨ Rejoindre l'UFEEL
-                    </a>
-                    <a href="{{ route('events.index') }}" class="btn btn-ghost text-base">
-                        📅 Voir les événements
-                    </a>
-                </div>
+        {{-- Texte gauche --}}
+        <div>
+            <div class="hero-badge">✦ Plateforme officielle UFEEL</div>
 
-                {{-- Stats inline --}}
-                @if($stats->count())
-                <div class="flex flex-wrap gap-8 mt-14 pt-10 border-t border-white/10">
-                    @foreach($stats as $stat)
-                    <div>
-                        <p class="text-3xl xl:text-4xl font-black text-gold">{{ number_format($stat->value) }}+</p>
-                        <p class="text-white/50 text-sm mt-0.5">{{ $stat->label }}</p>
-                    </div>
-                    @endforeach
-                </div>
-                @endif
+            <h1 class="hero-title">
+                Unis pour<br>
+                <span class="hero-title-gold">construire</span><br>
+                notre avenir
+            </h1>
+
+            <p class="hero-desc">
+                L'Union Fraternelle des Élèves et Étudiants de Lafi — ta communauté pour réussir ensemble en Côte d'Ivoire.
+            </p>
+
+            <div class="hero-btns">
+                <a href="{{ route('register') }}" class="btn btn-gold btn-lg">✨ Rejoindre l'UFEEL</a>
+                <a href="{{ route('events.index') }}" class="btn btn-ghost btn-lg">📅 Voir les événements</a>
             </div>
 
-            {{-- Logo droit --}}
-            <div class="flex justify-center lg:justify-end">
-                <div class="relative">
-                    <div class="absolute inset-0 rounded-full blur-3xl opacity-30 scale-110"
-                         style="background:radial-gradient(circle,#F5A800,transparent 70%)"></div>
-                    <img src="{{ asset('images/logo.jpg') }}" alt="UFEEL"
-                         class="relative w-72 h-72 xl:w-96 xl:h-96 2xl:w-[440px] 2xl:h-[440px] rounded-full object-cover shadow-2xl"
-                         style="box-shadow:0 0 0 4px rgba(245,168,0,.3),0 0 0 12px rgba(245,168,0,.08),0 40px 80px rgba(0,0,50,.5)">
+            @if($stats->count())
+            <div class="hero-stats">
+                @foreach($stats as $stat)
+                <div>
+                    <p class="hero-stat-val">{{ number_format($stat->value) }}+</p>
+                    <p class="hero-stat-lbl">{{ $stat->label }}</p>
                 </div>
+                @endforeach
             </div>
-
+            @endif
         </div>
+
+        {{-- Logo droit --}}
+        <div class="hero-right">
+            <div class="hero-logo-wrap">
+                <img src="{{ asset('images/logo.jpg') }}" alt="UFEEL" class="hero-logo">
+            </div>
+        </div>
+
     </div>
 </section>
 
 {{-- ══════ ACTUALITÉS ══════ --}}
 @if($posts->count())
-<section class="w-full px-6 xl:px-10 2xl:px-16 py-20">
-    <div class="max-w-screen-2xl mx-auto">
-        <div class="flex items-end justify-between mb-10">
+<section class="section-white">
+    <div class="section-inner">
+        <div class="sec-header">
             <div>
                 <p class="sec-eyebrow">Blog & Actualités</p>
                 <h2 class="sec-title">Dernières nouvelles</h2>
             </div>
-            <a href="{{ route('posts.index') }}" class="btn btn-navy text-sm py-2.5 px-6 hidden sm:inline-flex">
-                Tout voir →
-            </a>
+            <a href="{{ route('posts.index') }}" class="btn btn-navy btn-sm">Tout voir →</a>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div class="grid-4">
             @foreach($posts->take(4) as $post)
-            <a href="{{ route('posts.show', $post->slug) }}" class="card group flex flex-col">
-                @if($post->image)
-                    <img src="{{ Storage::url($post->image) }}" alt="" class="w-full h-48 object-cover">
+            <a href="{{ route('posts.show', $post->slug) }}" class="card">
+                @if($post->cover_image)
+                    <img src="{{ Storage::url($post->cover_image) }}" alt="" class="card-img">
                 @else
-                    <div class="w-full h-48 flex items-center justify-center text-5xl"
-                         style="background:linear-gradient(135deg,#000032,#1a3c8f)">📰</div>
+                    <div class="card-img-ph">📰</div>
                 @endif
-                <div class="p-5 flex-1 flex flex-col">
-                    <span class="badge bg-gold/10 text-gold mb-3">{{ ucfirst($post->category ?? 'Actualité') }}</span>
-                    <h3 class="font-bold text-navy text-base leading-snug group-hover:text-gold transition mb-2 flex-1">{{ $post->title }}</h3>
+                <div class="card-body">
+                    <span class="badge badge-gold" style="margin-bottom:10px;">{{ ucfirst($post->category ?? 'Actualité') }}</span>
+                    <h3 style="font-weight:700;color:#000032;font-size:.93rem;line-height:1.45;flex:1;margin-bottom:8px;">{{ $post->title }}</h3>
                     @if($post->excerpt)
-                        <p class="text-gray-500 text-sm line-clamp-2 mb-3">{{ $post->excerpt }}</p>
+                        <p style="color:#64748b;font-size:.8rem;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">{{ $post->excerpt }}</p>
                     @endif
-                    <p class="text-gray-400 text-xs">{{ $post->published_at?->diffForHumans() }}</p>
+                    <p style="color:#94a3b8;font-size:.75rem;">{{ $post->published_at?->diffForHumans() }}</p>
                 </div>
             </a>
             @endforeach
@@ -105,42 +339,37 @@
 
 {{-- ══════ ÉVÉNEMENTS ══════ --}}
 @if($events->count())
-<section class="py-20" style="background:#f1f5f9">
-    <div class="w-full px-6 xl:px-10 2xl:px-16">
-        <div class="max-w-screen-2xl mx-auto">
-            <div class="flex items-end justify-between mb-10">
-                <div>
-                    <p class="sec-eyebrow">Agenda</p>
-                    <h2 class="sec-title">Prochains événements</h2>
+<section class="section-gray">
+    <div class="section-inner">
+        <div class="sec-header">
+            <div>
+                <p class="sec-eyebrow">Agenda</p>
+                <h2 class="sec-title">Prochains événements</h2>
+            </div>
+            <a href="{{ route('events.index') }}" class="btn btn-navy btn-sm">Tout voir →</a>
+        </div>
+        <div class="grid-4">
+            @foreach($events->take(4) as $event)
+            <a href="{{ route('events.show', $event->slug) }}" class="card">
+                <div style="position:relative;">
+                    @if($event->cover_image)
+                        <img src="{{ Storage::url($event->cover_image) }}" alt="" style="width:100%;height:176px;object-fit:cover;display:block;">
+                    @else
+                        <div style="width:100%;height:176px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:linear-gradient(135deg,#000032,#1a3c8f);">📅</div>
+                    @endif
+                    <div class="ev-date-badge">
+                        <div class="ev-date-d">{{ $event->starts_at->format('d') }}</div>
+                        <div class="ev-date-m">{{ $event->starts_at->translatedFormat('M') }}</div>
+                    </div>
                 </div>
-                <a href="{{ route('events.index') }}" class="btn btn-navy text-sm py-2.5 px-6 hidden sm:inline-flex">
-                    Tout voir →
-                </a>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                @foreach($events->take(4) as $event)
-                <a href="{{ route('events.show', $event->slug) }}" class="card group">
-                    <div class="relative">
-                        @if($event->image)
-                            <img src="{{ Storage::url($event->image) }}" alt="" class="w-full h-44 object-cover">
-                        @else
-                            <div class="w-full h-44 flex items-center justify-center text-5xl"
-                                 style="background:linear-gradient(135deg,#000032,#1a3c8f)">📅</div>
-                        @endif
-                        <div class="absolute top-3 left-3 bg-gold text-navy rounded-xl px-3 py-1.5 text-center leading-none shadow-lg">
-                            <p class="text-xl font-black">{{ $event->start_date->format('d') }}</p>
-                            <p class="text-[10px] font-bold uppercase">{{ $event->start_date->translatedFormat('M') }}</p>
-                        </div>
-                    </div>
-                    <div class="p-5">
-                        <h3 class="font-bold text-navy text-base leading-snug group-hover:text-gold transition mb-1">{{ $event->title }}</h3>
-                        @if($event->location)
-                            <p class="text-gray-400 text-sm">📍 {{ $event->location }}</p>
-                        @endif
-                    </div>
-                </a>
-                @endforeach
-            </div>
+                <div class="card-body">
+                    <h3 style="font-weight:700;color:#000032;font-size:.93rem;line-height:1.45;margin-bottom:4px;">{{ $event->title }}</h3>
+                    @if($event->location)
+                        <p style="color:#94a3b8;font-size:.8rem;">📍 {{ $event->location }}</p>
+                    @endif
+                </div>
+            </a>
+            @endforeach
         </div>
     </div>
 </section>
@@ -148,28 +377,26 @@
 
 {{-- ══════ OPPORTUNITÉS ══════ --}}
 @if($opportunities->count())
-<section class="w-full px-6 xl:px-10 2xl:px-16 py-20">
-    <div class="max-w-screen-2xl mx-auto">
-        <div class="flex items-end justify-between mb-10">
+<section class="section-white">
+    <div class="section-inner">
+        <div class="sec-header">
             <div>
                 <p class="sec-eyebrow">Carrière & Formation</p>
                 <h2 class="sec-title">Opportunités</h2>
             </div>
-            <a href="{{ route('opportunities.index') }}" class="btn btn-navy text-sm py-2.5 px-6 hidden sm:inline-flex">
-                Tout voir →
-            </a>
+            <a href="{{ route('opportunities.index') }}" class="btn btn-navy btn-sm">Tout voir →</a>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5">
+        <div class="grid-5">
             @foreach($opportunities->take(5) as $opp)
-            <a href="{{ route('opportunities.index') }}" class="card group p-6 flex flex-col gap-4">
-                <div class="h-14 w-14 rounded-2xl bg-navy/5 flex items-center justify-center text-3xl">
+            <a href="{{ route('opportunities.index') }}" class="opp-card">
+                <div class="opp-icon">
                     {{ $opp->type === 'stage' ? '💼' : ($opp->type === 'bourse' ? '🎓' : ($opp->type === 'emploi' ? '🏢' : '🌟')) }}
                 </div>
                 <div>
-                    <span class="badge bg-navy/8 text-navy mb-2">{{ ucfirst($opp->type) }}</span>
-                    <h3 class="font-bold text-navy text-sm leading-snug group-hover:text-gold transition">{{ $opp->title }}</h3>
+                    <span class="badge badge-navy" style="margin-bottom:8px;">{{ ucfirst($opp->type) }}</span>
+                    <h3 style="font-weight:700;color:#000032;font-size:.875rem;line-height:1.45;">{{ $opp->title }}</h3>
                     @if($opp->deadline)
-                        <p class="text-gray-400 text-xs mt-2">⏰ {{ $opp->deadline->format('d/m/Y') }}</p>
+                        <p style="color:#94a3b8;font-size:.75rem;margin-top:8px;">⏰ {{ $opp->deadline->format('d/m/Y') }}</p>
                     @endif
                 </div>
             </a>
@@ -180,22 +407,18 @@
 @endif
 
 {{-- ══════ CTA BANNER ══════ --}}
-<section class="relative overflow-hidden py-24 px-6"
-         style="background:linear-gradient(135deg,#000032 0%,#1a3c8f 100%)">
-    <div class="absolute inset-0" style="background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.03) 1px,transparent 0);background-size:40px 40px"></div>
-    <div class="relative max-w-screen-2xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-10">
-        <div class="flex items-center gap-6">
-            <img src="{{ asset('images/logo.jpg') }}" alt=""
-                 class="h-24 w-24 rounded-full object-cover ring-4 ring-gold/40 shadow-2xl shrink-0">
+<section class="cta-section">
+    <div class="cta-dots"></div>
+    <div class="cta-inner">
+        <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center;">
+            <img src="{{ asset('images/logo.jpg') }}" alt="" class="cta-logo">
             <div>
-                <h2 class="text-3xl xl:text-4xl font-black text-white mb-2">
-                    Rejoins la famille <span class="text-gold">UFEEL</span>
-                </h2>
-                <p class="text-white/60 text-lg">Une communauté soudée pour construire l'avenir ensemble.</p>
+                <h2 class="cta-title">Rejoins la famille <span>UFEEL</span></h2>
+                <p class="cta-sub">Une communauté soudée pour construire l'avenir ensemble.</p>
             </div>
         </div>
-        <a href="{{ route('register') }}" class="btn btn-gold text-base shadow-2xl shrink-0">
-            ✨ S'inscrire maintenant — c'est gratuit
+        <a href="{{ route('register') }}" class="btn btn-gold btn-lg" style="flex-shrink:0;">
+            ✨ S'inscrire — c'est gratuit
         </a>
     </div>
 </section>

@@ -1,0 +1,54 @@
+services:
+  - type: web
+    name: ufeel
+    env: docker
+    plan: free
+    dockerContext: .
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: APP_NAME
+        value: UFEEL
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        value: base64:bsLVRVXg55397kPUi5w8CxV9Yo8fejV42G66XVEufuM=
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromDatabase:
+          name: ufeel-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: ufeel-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: ufeel-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: ufeel-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: ufeel-db
+          property: password
+      - key: SESSION_DRIVER
+        value: cookie
+      - key: CACHE_STORE
+        value: array
+      - key: QUEUE_CONNECTION
+        value: sync
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: FILESYSTEM_DISK
+        value: public
+
+databases:
+  - name: ufeel-db
+    plan: free
+    databaseName: ufeel
+    user: ufeel
