@@ -10,14 +10,14 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
+    libicu-dev \
     zip unzip git curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Extensions PHP (sans opcache — déjà compilé dans l'image de base)
+# Extensions PHP
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) pdo_pgsql zip gd
+    && docker-php-ext-install -j$(nproc) pdo_pgsql zip gd exif intl
 
-# Activer opcache sans recompiler
 RUN docker-php-ext-enable opcache
 
 # Composer
@@ -38,13 +38,13 @@ WORKDIR /var/www/html
 COPY . .
 RUN rm -f .env
 
-RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+# --no-scripts évite les "php artisan" qui échouent sans .env pendant le build
+RUN COMPOSER_MEMORY_LIMIT=-1 composer install \
+    --no-dev --optimize-autoloader --no-interaction --prefer-dist --no-scripts
 
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html \
     && chmod -R 775 storage bootstrap/cache
-
-RUN php artisan storage:link || true
 
 COPY docker/start.sh /start.sh
 RUN chmod +x /start.sh
