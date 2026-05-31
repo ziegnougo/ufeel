@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 cd /var/www/html
 
@@ -8,15 +7,24 @@ if [ -z "$APP_URL" ] && [ -n "$RENDER_EXTERNAL_URL" ]; then
     export APP_URL="$RENDER_EXTERNAL_URL"
 fi
 
-# Scripts post-composer (skippés au build, exécutés ici avec .env disponible)
+echo ">>> DB_CONNECTION=$DB_CONNECTION"
+echo ">>> DB_HOST=$DB_HOST"
+echo ">>> DB_PORT=$DB_PORT"
+echo ">>> DB_DATABASE=$DB_DATABASE"
+echo ">>> DB_USERNAME=$DB_USERNAME"
+
 php artisan package:discover --ansi || true
 php artisan filament:upgrade || true
-
-# Lien storage
 php artisan storage:link --force || true
 
-# Migrations
+echo ">>> Lancement des migrations..."
 php artisan migrate --force
+STATUS=$?
 
-# Démarrer Apache
+if [ $STATUS -ne 0 ]; then
+    echo ">>> ERREUR migration (code $STATUS) — vérifier les variables DB_*"
+    exit 1
+fi
+
+echo ">>> Démarrage Apache..."
 exec apache2-foreground
