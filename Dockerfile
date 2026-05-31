@@ -42,6 +42,9 @@ RUN rm -f .env
 RUN COMPOSER_MEMORY_LIMIT=-1 composer install \
     --no-dev --optimize-autoloader --no-interaction --prefer-dist --no-scripts
 
+# Vider le cache bootstrap pour éviter les références aux packages dev
+RUN rm -f bootstrap/cache/packages.php bootstrap/cache/services.php
+
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html \
     && chmod -R 775 storage bootstrap/cache
