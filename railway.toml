@@ -1,4 +1,5 @@
 [deploy]
+preDeployCommand = "mkdir -p bootstrap/cache && chmod -R 775 bootstrap/cache storage"
 startCommand = "php artisan storage:link --force && php artisan migrate --force && php artisan db:seed --class=AdminSeeder --force && php artisan db:seed --class=SiteStatSeeder --force && php artisan serve --host=0.0.0.0 --port=$PORT"
 
 [deploy.variables]
