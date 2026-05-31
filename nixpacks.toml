@@ -1,6 +1,3 @@
-[phases.setup]
-nixPkgs = ["php82", "php82Extensions.pdo_pgsql", "php82Extensions.gd", "php82Extensions.zip", "php82Extensions.exif", "php82Extensions.intl"]
-
 [phases.install]
 cmds = ["composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --no-scripts"]
 
@@ -11,4 +8,4 @@ cmds = [
 ]
 
 [start]
-cmd = "php artisan migrate --force && php artisan db:seed --class=AdminSeeder --force; php artisan db:seed --class=SiteStatSeeder --force; php artisan serve --host=0.0.0.0 --port=$PORT"
+cmd = "php artisan storage:link --force; php artisan migrate --force; php artisan db:seed --class=AdminSeeder --force; php artisan db:seed --class=SiteStatSeeder --force; php artisan serve --host=0.0.0.0 --port=$PORT"
