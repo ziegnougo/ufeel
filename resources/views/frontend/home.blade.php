@@ -4,331 +4,427 @@
 
 @push('head')
 <style>
-    /* ── Hero ── */
-    .hero {
-        background: linear-gradient(135deg, #000032 0%, #000050 50%, #1a3c8f 100%);
-        min-height: 90vh;
-        display: flex;
-        align-items: center;
-        overflow: hidden;
-        position: relative;
-        padding: 80px 24px;
+    /* ══════════════════════════════════════════════
+       MODERNE INSTITUTIONNEL — Page d'accueil
+       Palette : navy #04043C / or #F5A800 / blanc
+    ══════════════════════════════════════════════ */
+    :root {
+        --ink:       #04043C;
+        --ink-soft:  #10125A;
+        --gold:      #F5A800;
+        --paper:     #ffffff;
+        --mist:      #f6f7fb;
+        --line:      #e6e8f0;
     }
-    @media (min-width: 1280px) { .hero { padding: 80px 56px; } }
-    @media (min-width: 1536px) { .hero { padding: 80px 96px; } }
 
-    .hero-dots {
+    /* ── Conteneur sections ── */
+    .sect { padding: 88px 24px; }
+    .sect--mist { background: var(--mist); }
+    .sect-in { max-width: 1180px; margin: 0 auto; }
+    @media (min-width: 768px) { .sect { padding: 96px 40px; } }
+
+    /* ── HERO ── */
+    .hero {
+        position: relative;
+        overflow: hidden;
+        background:
+            radial-gradient(1100px 520px at 82% -10%, rgba(52,72,190,.45), transparent 60%),
+            radial-gradient(900px 480px at -8% 110%, rgba(9,12,84,.9), transparent 55%),
+            linear-gradient(150deg, #030335 0%, #04043C 55%, #0A1160 100%);
+        padding: 72px 24px 88px;
+    }
+    @media (min-width: 768px) { .hero { padding: 88px 40px 104px; } }
+    .hero::before {
+        content: '';
         position: absolute;
         inset: 0;
-        background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,.04) 1px, transparent 0);
-        background-size: 40px 40px;
+        background-image:
+            linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+        background-size: 56px 56px;
+        mask-image: radial-gradient(720px 480px at 30% 20%, #000 30%, transparent 75%);
         pointer-events: none;
     }
-    .hero-glow {
-        position: absolute;
-        top: -120px;
-        right: -120px;
-        width: 560px;
-        height: 560px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(245,168,0,.18), transparent 65%);
-        pointer-events: none;
-    }
-
-    .hero-inner {
+    .hero-in {
         position: relative;
-        width: 100%;
-        max-width: 1440px;
+        max-width: 1180px;
         margin: 0 auto;
         display: grid;
         grid-template-columns: 1fr;
         gap: 56px;
         align-items: center;
     }
-    @media (min-width: 1024px) {
-        .hero-inner { grid-template-columns: 1.1fr 0.9fr; }
-    }
-    @media (min-width: 1536px) {
-        .hero-inner { max-width: 1600px; }
-    }
+    @media (min-width: 1024px) { .hero-in { grid-template-columns: 1.15fr .85fr; gap: 72px; } }
 
-    .hero-badge {
+    .hero-eyebrow {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
-        background: rgba(245,168,0,.15);
-        color: #F5A800;
-        font-size: .68rem;
+        gap: 10px;
+        color: var(--gold);
+        font-size: .72rem;
         font-weight: 700;
-        letter-spacing: .12em;
+        letter-spacing: .16em;
         text-transform: uppercase;
-        padding: 6px 16px;
-        border-radius: 999px;
-        border: 1px solid rgba(245,168,0,.25);
-        margin-bottom: 28px;
+        margin-bottom: 24px;
+    }
+    .hero-eyebrow::before {
+        content: '';
+        width: 34px;
+        height: 2px;
+        background: var(--gold);
     }
 
     .hero-title {
-        color: #ffffff;
-        font-size: clamp(2.4rem, 4.5vw, 5rem);
-        font-weight: 900;
-        line-height: 1.06;
-        margin-bottom: 22px;
-        letter-spacing: -.02em;
+        color: #fff;
+        font-size: clamp(2.3rem, 4.6vw, 4rem);
+        font-weight: 800;
+        line-height: 1.08;
+        letter-spacing: -.025em;
+        margin-bottom: 20px;
     }
-    .hero-title-gold { color: #F5A800; }
+    .hero-title em {
+        font-style: normal;
+        color: var(--gold);
+    }
 
     .hero-desc {
-        color: rgba(255,255,255,.62);
-        font-size: 1.1rem;
-        line-height: 1.75;
-        max-width: 500px;
+        color: rgba(255,255,255,.66);
+        font-size: 1.05rem;
+        line-height: 1.8;
+        max-width: 480px;
         margin-bottom: 36px;
     }
 
-    .hero-btns {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-bottom: 52px;
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 56px; }
+    .btn-solid {
+        display: inline-flex; align-items: center; gap: 8px;
+        background: var(--gold); color: var(--ink);
+        font-weight: 700; font-size: .95rem;
+        padding: 15px 30px; border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(245,168,0,.28);
+        transition: transform .15s, box-shadow .15s;
     }
+    .btn-solid:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(245,168,0,.4); }
+    .btn-line {
+        display: inline-flex; align-items: center; gap: 8px;
+        color: #fff; font-weight: 600; font-size: .95rem;
+        padding: 15px 30px; border-radius: 10px;
+        border: 1px solid rgba(255,255,255,.28);
+        transition: border-color .15s, background .15s;
+    }
+    .btn-line:hover { border-color: rgba(255,255,255,.6); background: rgba(255,255,255,.06); }
 
     .hero-stats {
         display: flex;
         flex-wrap: wrap;
-        gap: 36px;
-        padding-top: 32px;
-        border-top: 1px solid rgba(255,255,255,.1);
+        border-top: 1px solid rgba(255,255,255,.12);
+        padding-top: 30px;
+        gap: 0 48px;
     }
-    .hero-stat-val {
-        font-size: 2.2rem;
-        font-weight: 900;
-        color: #F5A800;
-        line-height: 1;
+    .stat-num {
+        font-size: 1.9rem; font-weight: 800; color: var(--gold);
+        line-height: 1; letter-spacing: -.02em;
     }
-    .hero-stat-lbl {
-        font-size: .78rem;
-        color: rgba(255,255,255,.45);
-        margin-top: 4px;
+    .stat-lbl {
+        font-size: .74rem; font-weight: 500;
+        color: rgba(255,255,255,.5); margin-top: 7px;
     }
 
-    /* Logo côté droit */
-    .hero-right {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    @media (min-width: 1024px) { .hero-right { justify-content: flex-end; } }
-
-    .hero-logo-wrap {
+    /* Logo sur pastille claire */
+    .hero-visual { display: flex; justify-content: center; }
+    .hero-plate {
         position: relative;
-        display: inline-block;
+        width: min(340px, 78vw);
+        aspect-ratio: 1;
+        background: #fff;
+        border-radius: 32px;
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 40px 80px rgba(0,0,20,.45), 0 0 0 1px rgba(255,255,255,.14);
+        transform: rotate(-1.2deg);
     }
-    .hero-logo-wrap::before {
+    .hero-plate::after {
         content: '';
         position: absolute;
-        inset: -30px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(245,168,0,.22), transparent 65%);
-        filter: blur(28px);
+        inset: 14px;
+        border: 1.5px solid var(--line);
+        border-radius: 22px;
         pointer-events: none;
     }
-    .hero-logo {
-        position: relative;
-        width: 260px;
-        height: 260px;
+    .hero-plate img {
+        width: 62%;
+        height: 62%;
+        object-fit: contain;
         border-radius: 50%;
-        object-fit: cover;
-        box-shadow:
-            0 0 0 4px rgba(245,168,0,.35),
-            0 0 0 14px rgba(245,168,0,.08),
-            0 32px 64px rgba(0,0,50,.55);
     }
-    @media (min-width: 1280px) { .hero-logo { width: 340px; height: 340px; } }
-    @media (min-width: 1536px) { .hero-logo { width: 400px; height: 400px; } }
-
-    /* ── Sections ── */
-    .section-white { padding: 80px 24px; background: #fff; }
-    .section-gray  { padding: 80px 24px; background: #f1f5f9; }
-    @media (min-width: 1280px) { .section-white, .section-gray { padding: 80px 56px; } }
-    @media (min-width: 1536px) { .section-white, .section-gray { padding: 80px 96px; } }
-
-    .section-inner {
-        max-width: 1440px;
-        margin: 0 auto;
-    }
-    @media (min-width: 1536px) { .section-inner { max-width: 1600px; } }
-
-    /* ── Event date badge ── */
-    .ev-date-badge {
+    .hero-plate-tag {
         position: absolute;
-        top: 12px;
-        left: 12px;
-        background: #F5A800;
-        color: #000032;
-        border-radius: 10px;
-        padding: 6px 10px;
-        line-height: 1;
-        text-align: center;
-        box-shadow: 0 4px 12px rgba(245,168,0,.35);
-        z-index: 1;
+        bottom: -18px;
+        left: 50%;
+        transform: translateX(-50%) rotate(1.2deg);
+        background: var(--ink);
+        color: #fff;
+        font-size: .68rem;
+        font-weight: 700;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+        padding: 9px 20px;
+        border-radius: 999px;
+        border: 1px solid rgba(245,168,0,.5);
+        box-shadow: 0 12px 28px rgba(0,0,20,.4);
+        white-space: nowrap;
     }
-    .ev-date-d { font-size: 1.15rem; font-weight: 900; }
-    .ev-date-m { font-size: .5rem; font-weight: 700; text-transform: uppercase; margin-top: 2px; }
 
-    /* ── Opportunity card ── */
-    .opp-card {
+    /* ── En-têtes de section ── */
+    .head {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-bottom: 44px;
+    }
+    .eyebrow {
+        display: inline-flex; align-items: center; gap: 10px;
+        color: var(--gold);
+        font-size: .72rem; font-weight: 700;
+        letter-spacing: .16em; text-transform: uppercase;
+        margin-bottom: 10px;
+    }
+    .eyebrow::before { content: ''; width: 26px; height: 2px; background: var(--gold); }
+    .head h2 {
+        font-size: clamp(1.6rem, 2.6vw, 2.15rem);
+        font-weight: 800;
+        color: var(--ink);
+        letter-spacing: -.02em;
+        line-height: 1.15;
+    }
+    .more-link {
+        display: inline-flex; align-items: center; gap: 8px;
+        font-size: .85rem; font-weight: 700; color: var(--ink);
+        padding: 10px 20px;
+        border: 1.5px solid var(--line);
+        border-radius: 999px;
         background: #fff;
+        transition: border-color .15s, background .15s;
+        white-space: nowrap;
+    }
+    .more-link:hover { border-color: var(--gold); background: rgba(245,168,0,.07); }
+    .sect--mist .more-link { background: transparent; }
+    .sect--mist .more-link:hover { background: #fff; }
+
+    /* ── Cartes génériques ── */
+    .grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
+    @media (min-width: 640px)  { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .grid-3 { grid-template-columns: repeat(3, 1fr); }
+                                 .grid-4 { grid-template-columns: repeat(4, 1fr); } }
+
+    .tile {
+        background: #fff;
+        border: 1px solid var(--line);
         border-radius: 16px;
-        padding: 24px;
-        box-shadow: 0 1px 4px rgba(0,0,50,.06), 0 4px 16px rgba(0,0,50,.06);
-        transition: transform .2s, box-shadow .2s;
-        text-decoration: none;
-        color: inherit;
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
+        overflow: hidden;
+        display: flex; flex-direction: column;
+        transition: transform .2s, box-shadow .2s, border-color .2s;
     }
-    .opp-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,50,.13); }
-
-    .opp-icon {
-        width: 52px;
-        height: 52px;
-        border-radius: 14px;
-        background: rgba(0,0,50,.05);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.6rem;
+    .tile:hover {
+        transform: translateY(-4px);
+        border-color: transparent;
+        box-shadow: 0 18px 44px rgba(4,4,60,.12);
     }
 
-    /* ── CTA Banner ── */
-    .cta-section {
-        background: linear-gradient(135deg, #000032 0%, #1a3c8f 100%);
-        padding: 80px 24px;
+    .tile-img { position: relative; }
+    .tile-img img { width: 100%; height: 176px; object-fit: cover; }
+    .tile-img-ph {
+        width: 100%; height: 176px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 2.6rem;
+        background: linear-gradient(145deg, #04043C 0%, #131A66 100%);
+        position: relative;
+    }
+    .tile-img-ph::before {
+        content: '';
+        position: absolute; inset: 0;
+        background: radial-gradient(300px 180px at 80% 0%, rgba(245,168,0,.14), transparent 65%);
+    }
+    .tile-body { padding: 20px 22px; flex: 1; display: flex; flex-direction: column; }
+
+    .chip {
+        align-self: flex-start;
+        font-size: .66rem; font-weight: 700;
+        letter-spacing: .08em; text-transform: uppercase;
+        padding: 4px 12px; border-radius: 999px;
+        background: rgba(245,168,0,.12); color: #9A6B00;
+        margin-bottom: 12px;
+    }
+    .chip--navy { background: rgba(4,4,60,.07); color: var(--ink); }
+    .tile h3 {
+        font-size: .95rem; font-weight: 700; color: var(--ink);
+        line-height: 1.45; margin-bottom: 6px;
+        display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .tile .excerpt {
+        color: #6b7280; font-size: .8rem; line-height: 1.6; margin-bottom: 12px;
+        display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .tile .meta {
+        margin-top: auto;
+        color: #9aa1b2; font-size: .74rem; font-weight: 500;
+        display: flex; align-items: center; gap: 6px;
+    }
+
+    /* Pastille date événement */
+    .date-tag {
+        position: absolute; top: 14px; left: 14px;
+        background: var(--gold); color: var(--ink);
+        border-radius: 12px; padding: 8px 12px;
+        text-align: center; line-height: 1;
+        box-shadow: 0 8px 20px rgba(245,168,0,.4);
+    }
+    .date-tag b   { display: block; font-size: 1.15rem; font-weight: 800; }
+    .date-tag span{ display: block; font-size: .56rem; font-weight: 700; text-transform: uppercase; margin-top: 3px; letter-spacing: .08em; }
+
+    /* ── Partenaires ── */
+    .partners-band {
+        border-top: 1px solid var(--line);
+        padding: 56px 24px;
+        background: #fff;
+    }
+    .partners-in { max-width: 1180px; margin: 0 auto; }
+    .partners-lbl {
+        text-align: center;
+        font-size: .7rem; font-weight: 700;
+        letter-spacing: .18em; text-transform: uppercase;
+        color: #9aa1b2;
+        margin-bottom: 30px;
+    }
+    .partners-row {
+        display: flex; flex-wrap: wrap;
+        justify-content: center; align-items: center;
+        gap: 14px;
+    }
+    .partner-pill {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 10px 22px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--mist);
+        font-size: .82rem; font-weight: 600; color: #4b5263;
+    }
+    .partner-pill::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
+
+    /* ── CTA ── */
+    .cta {
         position: relative;
         overflow: hidden;
-    }
-    @media (min-width: 1280px) { .cta-section { padding: 80px 56px; } }
-    @media (min-width: 1536px) { .cta-section { padding: 80px 96px; } }
-
-    .cta-dots {
-        position: absolute;
-        inset: 0;
-        background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,.03) 1px, transparent 0);
-        background-size: 40px 40px;
-        pointer-events: none;
-    }
-    .cta-inner {
-        position: relative;
-        max-width: 1440px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 32px;
+        background:
+            radial-gradient(700px 320px at 50% 0%, rgba(245,168,0,.12), transparent 70%),
+            linear-gradient(140deg, #030335, #04043C 60%, #0A1160);
+        padding: 96px 24px;
         text-align: center;
     }
-    @media (min-width: 1024px) {
-        .cta-inner { flex-direction: row; justify-content: space-between; text-align: left; gap: 48px; }
+    .cta::before {
+        content: '';
+        position: absolute; top: 0; left: 50%;
+        transform: translateX(-50%);
+        width: min(560px, 80%); height: 3px;
+        background: linear-gradient(90deg, transparent, var(--gold), transparent);
     }
-    .cta-logo {
-        width: 76px;
-        height: 76px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 3px solid rgba(245,168,0,.4);
-        box-shadow: 0 8px 32px rgba(0,0,50,.45);
-        flex-shrink: 0;
+    .cta-in { position: relative; max-width: 640px; margin: 0 auto; }
+    .cta-eyebrow {
+        color: var(--gold);
+        font-size: .72rem; font-weight: 700;
+        letter-spacing: .18em; text-transform: uppercase;
+        margin-bottom: 18px;
     }
-    .cta-title {
-        font-size: clamp(1.6rem, 2.5vw, 2.4rem);
-        font-weight: 900;
+    .cta h2 {
         color: #fff;
-        line-height: 1.2;
-        margin-bottom: 8px;
+        font-size: clamp(1.7rem, 3vw, 2.5rem);
+        font-weight: 800;
+        letter-spacing: -.02em;
+        line-height: 1.15;
+        margin-bottom: 14px;
     }
-    .cta-title span { color: #F5A800; }
-    .cta-sub { color: rgba(255,255,255,.58); font-size: 1rem; }
+    .cta p { color: rgba(255,255,255,.6); font-size: 1rem; line-height: 1.75; margin-bottom: 36px; }
+
+    @media (max-width: 400px) {
+        .hero-plate-tag { font-size: .58rem; padding: 8px 14px; }
+    }
 </style>
 @endpush
 
 @section('content')
 
-{{-- ══════ HERO ══════ --}}
+{{-- ══════════════ HERO ══════════════ --}}
 <section class="hero">
-    <div class="hero-dots"></div>
-    <div class="hero-glow"></div>
+    <div class="hero-in">
 
-    <div class="hero-inner">
-
-        {{-- Texte gauche --}}
         <div>
-            <div class="hero-badge">✦ Plateforme officielle UFEEL</div>
+            <p class="hero-eyebrow">Plateforme officielle UFEEL</p>
 
             <h1 class="hero-title">
-                Unis pour<br>
-                <span class="hero-title-gold">construire</span><br>
-                notre avenir
+                Unis pour <em>construire</em> notre avenir
             </h1>
 
             <p class="hero-desc">
                 L'Union Fraternelle des Élèves et Étudiants de Lafi — ta communauté pour réussir ensemble en Côte d'Ivoire.
             </p>
 
-            <div class="hero-btns">
-                <a href="{{ route('register') }}" class="btn btn-gold btn-lg">✨ Rejoindre l'UFEEL</a>
-                <a href="{{ route('events.index') }}" class="btn btn-ghost btn-lg">📅 Voir les événements</a>
+            <div class="hero-cta">
+                <a href="{{ route('register') }}" class="btn-solid">Rejoindre l'UFEEL</a>
+                <a href="{{ route('events.index') }}" class="btn-line">Voir les événements</a>
             </div>
 
             @if($stats->count())
             <div class="hero-stats">
                 @foreach($stats as $stat)
                 <div>
-                    <p class="hero-stat-val">{{ number_format($stat->value) }}+</p>
-                    <p class="hero-stat-lbl">{{ $stat->label }}</p>
+                    <p class="stat-num">{{ number_format($stat->value) }}+</p>
+                    <p class="stat-lbl">{{ $stat->label }}</p>
                 </div>
                 @endforeach
             </div>
             @endif
         </div>
 
-        {{-- Logo droit --}}
-        <div class="hero-right">
-            <div class="hero-logo-wrap">
-                <img src="{{ asset('images/logo.jpg') }}" alt="UFEEL" class="hero-logo">
+        <div class="hero-visual">
+            <div class="hero-plate">
+                <img src="{{ asset('images/logo.jpg') }}" alt="Logo UFEEL">
+                <span class="hero-plate-tag">Unité · Fraternité · Solidarité</span>
             </div>
         </div>
 
     </div>
 </section>
 
-{{-- ══════ ACTUALITÉS ══════ --}}
+{{-- ══════════════ ACTUALITÉS ══════════════ --}}
 @if($posts->count())
-<section class="section-white">
-    <div class="section-inner">
-        <div class="sec-header">
+<section class="sect">
+    <div class="sect-in">
+        <div class="head">
             <div>
-                <p class="sec-eyebrow">Blog & Actualités</p>
-                <h2 class="sec-title">Dernières nouvelles</h2>
+                <p class="eyebrow">Blog &amp; Actualités</p>
+                <h2>Dernières nouvelles</h2>
             </div>
-            <a href="{{ route('posts.index') }}" class="btn btn-navy btn-sm">Tout voir →</a>
+            <a href="{{ route('posts.index') }}" class="more-link">Tout voir <span aria-hidden="true">→</span></a>
         </div>
-        <div class="grid-4">
+
+        <div class="grid grid-4">
             @foreach($posts->take(4) as $post)
-            <a href="{{ route('posts.show', $post->slug) }}" class="card">
-                @if($post->cover_image)
-                    <img src="{{ Storage::url($post->cover_image) }}" alt="" class="card-img">
-                @else
-                    <div class="card-img-ph">📰</div>
-                @endif
-                <div class="card-body">
-                    <span class="badge badge-gold" style="margin-bottom:10px;">{{ ucfirst($post->category ?? 'Actualité') }}</span>
-                    <h3 style="font-weight:700;color:#000032;font-size:.93rem;line-height:1.45;flex:1;margin-bottom:8px;">{{ $post->title }}</h3>
-                    @if($post->excerpt)
-                        <p style="color:#64748b;font-size:.8rem;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">{{ $post->excerpt }}</p>
+            <a href="{{ route('posts.show', $post->slug) }}" class="tile">
+                <div class="tile-img">
+                    @if($post->cover_image)
+                        <img src="{{ Storage::url($post->cover_image) }}" alt="">
+                    @else
+                        <div class="tile-img-ph">📰</div>
                     @endif
-                    <p style="color:#94a3b8;font-size:.75rem;">{{ $post->published_at?->diffForHumans() }}</p>
+                </div>
+                <div class="tile-body">
+                    <span class="chip">{{ ucfirst($post->category ?? 'Actualité') }}</span>
+                    <h3>{{ $post->title }}</h3>
+                    @if($post->excerpt)
+                        <p class="excerpt">{{ $post->excerpt }}</p>
+                    @endif
+                    <p class="meta">{{ $post->published_at?->diffForHumans() }}</p>
                 </div>
             </a>
             @endforeach
@@ -337,35 +433,36 @@
 </section>
 @endif
 
-{{-- ══════ ÉVÉNEMENTS ══════ --}}
+{{-- ══════════════ ÉVÉNEMENTS ══════════════ --}}
 @if($events->count())
-<section class="section-gray">
-    <div class="section-inner">
-        <div class="sec-header">
+<section class="sect sect--mist">
+    <div class="sect-in">
+        <div class="head">
             <div>
-                <p class="sec-eyebrow">Agenda</p>
-                <h2 class="sec-title">Prochains événements</h2>
+                <p class="eyebrow">Agenda</p>
+                <h2>Prochains événements</h2>
             </div>
-            <a href="{{ route('events.index') }}" class="btn btn-navy btn-sm">Tout voir →</a>
+            <a href="{{ route('events.index') }}" class="more-link">Tout voir <span aria-hidden="true">→</span></a>
         </div>
-        <div class="grid-4">
+
+        <div class="grid grid-4">
             @foreach($events->take(4) as $event)
-            <a href="{{ route('events.show', $event->slug) }}" class="card">
-                <div style="position:relative;">
+            <a href="{{ route('events.show', $event->slug) }}" class="tile">
+                <div class="tile-img">
                     @if($event->cover_image)
-                        <img src="{{ Storage::url($event->cover_image) }}" alt="" style="width:100%;height:176px;object-fit:cover;display:block;">
+                        <img src="{{ Storage::url($event->cover_image) }}" alt="">
                     @else
-                        <div style="width:100%;height:176px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:linear-gradient(135deg,#000032,#1a3c8f);">📅</div>
+                        <div class="tile-img-ph">📅</div>
                     @endif
-                    <div class="ev-date-badge">
-                        <div class="ev-date-d">{{ $event->starts_at->format('d') }}</div>
-                        <div class="ev-date-m">{{ $event->starts_at->translatedFormat('M') }}</div>
+                    <div class="date-tag">
+                        <b>{{ $event->starts_at->format('d') }}</b>
+                        <span>{{ $event->starts_at->translatedFormat('M') }}</span>
                     </div>
                 </div>
-                <div class="card-body">
-                    <h3 style="font-weight:700;color:#000032;font-size:.93rem;line-height:1.45;margin-bottom:4px;">{{ $event->title }}</h3>
+                <div class="tile-body">
+                    <h3>{{ $event->title }}</h3>
                     @if($event->location)
-                        <p style="color:#94a3b8;font-size:.8rem;">📍 {{ $event->location }}</p>
+                        <p class="meta">📍 {{ $event->location }}</p>
                     @endif
                 </div>
             </a>
@@ -375,28 +472,29 @@
 </section>
 @endif
 
-{{-- ══════ OPPORTUNITÉS ══════ --}}
+{{-- ══════════════ OPPORTUNITÉS ══════════════ --}}
 @if($opportunities->count())
-<section class="section-white">
-    <div class="section-inner">
-        <div class="sec-header">
+<section class="sect">
+    <div class="sect-in">
+        <div class="head">
             <div>
-                <p class="sec-eyebrow">Carrière & Formation</p>
-                <h2 class="sec-title">Opportunités</h2>
+                <p class="eyebrow">Carrière &amp; Formation</p>
+                <h2>Opportunités du moment</h2>
             </div>
-            <a href="{{ route('opportunities.index') }}" class="btn btn-navy btn-sm">Tout voir →</a>
+            <a href="{{ route('opportunities.index') }}" class="more-link">Tout voir <span aria-hidden="true">→</span></a>
         </div>
-        <div class="grid-5">
-            @foreach($opportunities->take(5) as $opp)
-            <a href="{{ route('opportunities.index') }}" class="opp-card">
-                <div class="opp-icon">
-                    {{ $opp->type === 'stage' ? '💼' : ($opp->type === 'bourse' ? '🎓' : ($opp->type === 'emploi' ? '🏢' : '🌟')) }}
-                </div>
-                <div>
-                    <span class="badge badge-navy" style="margin-bottom:8px;">{{ ucfirst($opp->type) }}</span>
-                    <h3 style="font-weight:700;color:#000032;font-size:.875rem;line-height:1.45;">{{ $opp->title }}</h3>
+
+        <div class="grid grid-4">
+            @foreach($opportunities->take(4) as $opp)
+            <a href="{{ route('opportunities.index') }}" class="tile">
+                <div class="tile-body">
+                    <span class="chip chip--navy">{{ ucfirst($opp->type) }}</span>
+                    <h3>{{ $opp->title }}</h3>
+                    @if($opp->organization)
+                        <p class="excerpt">{{ $opp->organization }}</p>
+                    @endif
                     @if($opp->deadline)
-                        <p style="color:#94a3b8;font-size:.75rem;margin-top:8px;">⏰ {{ $opp->deadline->format('d/m/Y') }}</p>
+                        <p class="meta">⏰ Clôture le {{ $opp->deadline->format('d/m/Y') }}</p>
                     @endif
                 </div>
             </a>
@@ -406,20 +504,27 @@
 </section>
 @endif
 
-{{-- ══════ CTA BANNER ══════ --}}
-<section class="cta-section">
-    <div class="cta-dots"></div>
-    <div class="cta-inner">
-        <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center;">
-            <img src="{{ asset('images/logo.jpg') }}" alt="" class="cta-logo">
-            <div>
-                <h2 class="cta-title">Rejoins la famille <span>UFEEL</span></h2>
-                <p class="cta-sub">Une communauté soudée pour construire l'avenir ensemble.</p>
-            </div>
+{{-- ══════════════ PARTENAIRES ══════════════ --}}
+@if($partners->count())
+<section class="partners-band">
+    <div class="partners-in">
+        <p class="partners-lbl">Ils accompagnent l'UFEEL</p>
+        <div class="partners-row">
+            @foreach($partners as $partner)
+            <span class="partner-pill">{{ $partner->name }}</span>
+            @endforeach
         </div>
-        <a href="{{ route('register') }}" class="btn btn-gold btn-lg" style="flex-shrink:0;">
-            ✨ S'inscrire — c'est gratuit
-        </a>
+    </div>
+</section>
+@endif
+
+{{-- ══════════════ CTA ══════════════ --}}
+<section class="cta">
+    <div class="cta-in">
+        <p class="cta-eyebrow">Rejoins la famille UFEEL</p>
+        <h2>Une communauté soudée pour construire l'avenir ensemble.</h2>
+        <p>Inscris-toi en quelques minutes : actualités, événements, opportunités et ressources, réservés aux membres.</p>
+        <a href="{{ route('register') }}" class="btn-solid">S'inscrire — c'est gratuit</a>
     </div>
 </section>
 

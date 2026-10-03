@@ -371,7 +371,6 @@
         .footer {
             background: var(--navy);
             color: rgba(255,255,255,.65);
-            margin-top: 80px;
         }
         .footer-grid {
             display: grid;

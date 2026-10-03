@@ -7,7 +7,8 @@ Laravel 11 + Filament v3 app for **UFEEL** (Union Fraternelle des Élèves et É
 ```
 docker compose -f docker-compose.base44.yml up -d
 ```
-- **Web** (port 3000): `php artisan serve --host=0.0.0.0 --port=3000` — Blade/PHP changes take effect on next request (no restart needed).
+- **Web** (port 3000): `php artisan serve --host=0.0.0.0 --port=3000 --no-reload` — Blade/PHP changes take effect on next request (no restart needed).
+  **IMPORTANT:** `artisan serve` must run with `--no-reload` — without it, ServeCommand strips all env vars except a small passthrough list (APP_ENV, PATH…) from its `php -S` worker, so the worker falls back to the repo `.env` (`DB_CONNECTION=sqlite`) instead of the compose-provided PostgreSQL env. Symptom: API/web reads an empty sqlite DB while `docker compose exec web php artisan tinker` sees the pgsql data.
 - **DB**: PostgreSQL 16 (`ufeel` db, `ufeel` user, password `ufeel_dev_pass`).
 - Migrations + seeders (AdminSeeder, SiteStatSeeder) run automatically on container start.
 
