@@ -1,0 +1,22 @@
+{
+  "previewPort": 3000,
+  "healthPath": "/up",
+  "startCommand": "docker compose -f docker-compose.base44.yml up -d",
+  "secrets": [
+    {
+      "name": "OPENAI_API_KEY",
+      "description": "OpenAI API key for the AI chat/conversation feature. Optional — the app boots without it, but the AI feature won't work until it's set. Get it from https://platform.openai.com/api-keys.",
+      "requiredAtBoot": false
+    },
+    {
+      "name": "CINETPAY_API_KEY",
+      "description": "CinetPay API key for membership subscription payments (Côte d'Ivoire / West Africa). Optional — the app boots without it, but payment initiation won't work. Get it from the CinetPay merchant dashboard.",
+      "requiredAtBoot": false
+    },
+    {
+      "name": "CINETPAY_SITE_ID",
+      "description": "CinetPay Site ID for payment integration. Optional — paired with CINETPAY_API_KEY. Get it from the CinetPay merchant dashboard.",
+      "requiredAtBoot": false
+    }
+  ]
+}
