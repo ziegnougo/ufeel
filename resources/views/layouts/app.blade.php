@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'UFEEL') — Union Fraternelle des Élèves et Étudiants de Lafi</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     @stack('head')
     <style>
         /* ============================================================
@@ -15,7 +15,7 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body {
-            font-family: 'Inter', 'Segoe UI', -apple-system, sans-serif;
+            font-family: var(--font-body);
             background: #f8fafc;
             color: #1f2937;
             line-height: 1.6;
@@ -26,9 +26,34 @@
         button { font-family: inherit; }
 
         /* ============================================================
+           TYPOGRAPHIE INSTITUTIONNELLE
+           Titres : Archivo (affirmé, tracked tight)
+           Texte  : Inter (lisible, hiérarchie claire)
+        ============================================================ */
+        h1, h2, h3, h4 {
+            font-family: var(--font-display);
+            color: var(--navy);
+            line-height: 1.12;
+            letter-spacing: -.02em;
+        }
+        h1 { font-size: 2.25rem; font-weight: 800; letter-spacing: -.025em; }
+        h2 { font-size: 1.75rem; font-weight: 800; }
+        h3 { font-size: 1.2rem;  font-weight: 700; }
+        h4 { font-size: 1rem;    font-weight: 700; letter-spacing: -.01em; }
+        @media (min-width: 768px) {
+            h1 { font-size: 2.75rem; }
+            h2 { font-size: 2.1rem; }
+        }
+        small { font-size: .8rem; }
+        b, strong { font-weight: 700; }
+        ::selection { background: var(--gold); color: var(--navy); }
+
+        /* ============================================================
            VARIABLES
         ============================================================ */
         :root {
+            --font-display: 'Archivo', 'Inter', 'Segoe UI', sans-serif;
+            --font-body: 'Inter', 'Segoe UI', -apple-system, sans-serif;
             --navy:     #04043C;
             --navy-mid: #131A66;
             --gold:     #F5A800;
@@ -94,8 +119,9 @@
             box-shadow: 0 2px 8px rgba(245,168,0,.2);
         }
         .brand-name {
-            font-weight: 900;
-            font-size: 1.15rem;
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 1.2rem;
             color: var(--navy);
             letter-spacing: -.01em;
             line-height: 1;
@@ -332,8 +358,9 @@
             margin-bottom: 6px;
         }
         .sec-title {
+            font-family: var(--font-display);
             font-size: 1.85rem;
-            font-weight: 900;
+            font-weight: 800;
             color: var(--navy);
             line-height: 1.2;
         }

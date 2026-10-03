@@ -62,9 +62,10 @@
         align-items: center;
         gap: 10px;
         color: var(--gold);
+        font-family: var(--font-display);
         font-size: .72rem;
         font-weight: 700;
-        letter-spacing: .16em;
+        letter-spacing: .18em;
         text-transform: uppercase;
         margin-bottom: 24px;
     }
@@ -77,10 +78,11 @@
 
     .hero-title {
         color: #fff;
+        font-family: var(--font-display);
         font-size: clamp(2.3rem, 4.6vw, 4rem);
         font-weight: 800;
-        line-height: 1.08;
-        letter-spacing: -.025em;
+        line-height: 1.06;
+        letter-spacing: -.028em;
         margin-bottom: 20px;
     }
     .hero-title em {
@@ -124,7 +126,8 @@
         gap: 0 48px;
     }
     .stat-num {
-        font-size: 1.9rem; font-weight: 800; color: var(--gold);
+        font-family: var(--font-display);
+        font-size: 2rem; font-weight: 800; color: var(--gold);
         line-height: 1; letter-spacing: -.02em;
     }
     .stat-lbl {
@@ -194,11 +197,12 @@
     }
     .eyebrow::before { content: ''; width: 26px; height: 2px; background: var(--gold); }
     .head h2 {
+        font-family: var(--font-display);
         font-size: clamp(1.6rem, 2.6vw, 2.15rem);
         font-weight: 800;
         color: var(--ink);
-        letter-spacing: -.02em;
-        line-height: 1.15;
+        letter-spacing: -.025em;
+        line-height: 1.12;
     }
     .more-link {
         display: inline-flex; align-items: center; gap: 8px;
@@ -345,10 +349,11 @@
     }
     .cta h2 {
         color: #fff;
+        font-family: var(--font-display);
         font-size: clamp(1.7rem, 3vw, 2.5rem);
         font-weight: 800;
-        letter-spacing: -.02em;
-        line-height: 1.15;
+        letter-spacing: -.025em;
+        line-height: 1.12;
         margin-bottom: 14px;
     }
     .cta p { color: rgba(255,255,255,.6); font-size: 1rem; line-height: 1.75; margin-bottom: 36px; }
