@@ -10,11 +10,11 @@
     ══════════════════════════════════════════════ */
     :root {
         --ink:       #04043C;
-        --ink-soft:  #10125A;
+        --ink-soft:  #131A66;
         --gold:      #F5A800;
         --paper:     #ffffff;
         --mist:      #f6f7fb;
-        --line:      #e6e8f0;
+        --line:      #e5e7f2;
     }
 
     /* ── Conteneur sections ── */
@@ -28,9 +28,10 @@
         position: relative;
         overflow: hidden;
         background:
-            radial-gradient(1100px 520px at 82% -10%, rgba(52,72,190,.45), transparent 60%),
-            radial-gradient(900px 480px at -8% 110%, rgba(9,12,84,.9), transparent 55%),
-            linear-gradient(150deg, #030335 0%, #04043C 55%, #0A1160 100%);
+            radial-gradient(1100px 560px at 84% -12%, rgba(72,98,235,.5), transparent 62%),
+            radial-gradient(720px 380px at 100% 78%, rgba(245,168,0,.09), transparent 60%),
+            radial-gradient(900px 480px at -8% 110%, rgba(9,12,84,.95), transparent 55%),
+            linear-gradient(150deg, #02022B 0%, #04043C 55%, #0A1160 100%);
         padding: 72px 24px 88px;
     }
     @media (min-width: 768px) { .hero { padding: 88px 40px 104px; } }
@@ -100,11 +101,12 @@
         display: inline-flex; align-items: center; gap: 8px;
         background: var(--gold); color: var(--ink);
         font-weight: 700; font-size: .95rem;
-        padding: 15px 30px; border-radius: 10px;
-        box-shadow: 0 10px 30px rgba(245,168,0,.28);
-        transition: transform .15s, box-shadow .15s;
+        padding: 15px 32px; border-radius: 12px;
+        background: linear-gradient(160deg, #FFC13D, var(--gold) 65%);
+        box-shadow: 0 12px 32px -8px rgba(245,168,0,.5);
+        transition: transform .16s, box-shadow .16s;
     }
-    .btn-solid:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(245,168,0,.4); }
+    .btn-solid:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -8px rgba(245,168,0,.6); }
     .btn-line {
         display: inline-flex; align-items: center; gap: 8px;
         color: #fff; font-weight: 600; font-size: .95rem;
@@ -205,10 +207,11 @@
         border: 1.5px solid var(--line);
         border-radius: 999px;
         background: #fff;
-        transition: border-color .15s, background .15s;
+        box-shadow: 0 4px 14px -10px rgba(4,4,60,.2);
+        transition: border-color .15s, background .15s, box-shadow .15s;
         white-space: nowrap;
     }
-    .more-link:hover { border-color: var(--gold); background: rgba(245,168,0,.07); }
+    .more-link:hover { border-color: var(--gold); background: rgba(245,168,0,.07); box-shadow: 0 8px 22px -10px rgba(245,168,0,.4); }
     .sect--mist .more-link { background: transparent; }
     .sect--mist .more-link:hover { background: #fff; }
 
@@ -221,15 +224,16 @@
     .tile {
         background: #fff;
         border: 1px solid var(--line);
-        border-radius: 16px;
+        border-radius: 20px;
         overflow: hidden;
         display: flex; flex-direction: column;
-        transition: transform .2s, box-shadow .2s, border-color .2s;
+        box-shadow: 0 1px 2px rgba(4,4,60,.04), 0 12px 32px -16px rgba(4,4,60,.10);
+        transition: transform .22s cubic-bezier(.2,.7,.3,1.2), box-shadow .22s, border-color .22s;
     }
     .tile:hover {
-        transform: translateY(-4px);
+        transform: translateY(-6px);
         border-color: transparent;
-        box-shadow: 0 18px 44px rgba(4,4,60,.12);
+        box-shadow: 0 26px 52px -16px rgba(4,4,60,.2);
     }
 
     .tile-img { position: relative; }
@@ -238,7 +242,9 @@
         width: 100%; height: 176px;
         display: flex; align-items: center; justify-content: center;
         font-size: 2.6rem;
-        background: linear-gradient(145deg, #04043C 0%, #131A66 100%);
+        background:
+            radial-gradient(320px 200px at 82% 0%, rgba(72,98,235,.5), transparent 65%),
+            linear-gradient(145deg, #02022B 0%, #131A66 100%);
         position: relative;
     }
     .tile-img-ph::before {
@@ -275,8 +281,8 @@
     /* Pastille date événement */
     .date-tag {
         position: absolute; top: 14px; left: 14px;
-        background: var(--gold); color: var(--ink);
-        border-radius: 12px; padding: 8px 12px;
+        background: linear-gradient(160deg, #FFC13D, var(--gold) 65%); color: var(--ink);
+        border-radius: 14px; padding: 8px 12px;
         text-align: center; line-height: 1;
         box-shadow: 0 8px 20px rgba(245,168,0,.4);
     }
@@ -307,8 +313,9 @@
         padding: 10px 22px;
         border: 1px solid var(--line);
         border-radius: 999px;
-        background: var(--mist);
+        background: #fff;
         font-size: .82rem; font-weight: 600; color: #4b5263;
+        box-shadow: 0 4px 14px -8px rgba(4,4,60,.15);
     }
     .partner-pill::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
 

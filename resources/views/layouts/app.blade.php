@@ -29,16 +29,16 @@
            VARIABLES
         ============================================================ */
         :root {
-            --navy:     #000032;
-            --navy-mid: #000050;
+            --navy:     #04043C;
+            --navy-mid: #131A66;
             --gold:     #F5A800;
-            --gold-dk:  #d4900a;
-            --bg:       #f8fafc;
-            --bg-gray:  #f1f5f9;
-            --border:   #e2e8f0;
-            --text:     #1f2937;
-            --muted:    #64748b;
-            --light:    #94a3b8;
+            --gold-dk:  #D99600;
+            --bg:       #f7f8fc;
+            --bg-gray:  #f1f3f9;
+            --border:   #e5e7f2;
+            --text:     #1e2340;
+            --muted:    #5c6480;
+            --light:    #9aa2bc;
         }
 
         /* ============================================================
@@ -65,7 +65,7 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
-            box-shadow: 0 1px 8px rgba(0,0,50,.07);
+            box-shadow: 0 8px 28px -16px rgba(4,4,60,.18);
         }
         .navbar-row {
             height: 100%;
@@ -258,11 +258,17 @@
         .btn-sm  { padding: 7px 18px; font-size: .8rem; }
         .btn-lg  { padding: 14px 32px; font-size: 1rem; }
 
-        .btn-navy { background: var(--navy); color: #fff; }
-        .btn-navy:hover  { background: #00005a; box-shadow: 0 6px 20px rgba(0,0,50,.3); }
+        .btn-navy {
+            background: linear-gradient(160deg, #0B0B6B, var(--navy) 70%);
+            color: #fff;
+        }
+        .btn-navy:hover  { background: linear-gradient(160deg, #131A66, #080A5C 70%); box-shadow: 0 10px 28px -8px rgba(4,4,60,.45); }
 
-        .btn-gold { background: var(--gold); color: var(--navy); }
-        .btn-gold:hover  { background: var(--gold-dk); box-shadow: 0 6px 20px rgba(245,168,0,.35); }
+        .btn-gold {
+            background: linear-gradient(160deg, #FFC13D, var(--gold) 65%);
+            color: var(--navy);
+        }
+        .btn-gold:hover  { background: linear-gradient(160deg, #FFB01F, var(--gold) 65%); box-shadow: 0 10px 28px -8px rgba(245,168,0,.55); }
 
         .btn-ghost {
             background: rgba(255,255,255,.12);
@@ -276,16 +282,21 @@
         ============================================================ */
         .card {
             background: #fff;
-            border-radius: 16px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 1px 4px rgba(0,0,50,.06), 0 4px 16px rgba(0,0,50,.06);
-            transition: transform .2s, box-shadow .2s;
+            box-shadow: 0 1px 2px rgba(4,4,60,.04), 0 12px 32px -14px rgba(4,4,60,.10);
+            transition: transform .22s cubic-bezier(.2,.7,.3,1.2), box-shadow .22s, border-color .22s;
             text-decoration: none;
             color: inherit;
             display: flex;
             flex-direction: column;
         }
-        .card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,50,.13); }
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: transparent;
+            box-shadow: 0 24px 48px -16px rgba(4,4,60,.18);
+        }
 
         .card-img { width: 100%; height: 192px; object-fit: cover; display: block; }
         .card-img-ph {
